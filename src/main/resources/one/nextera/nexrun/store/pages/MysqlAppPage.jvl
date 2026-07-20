@@ -1,0 +1,101 @@
+<template>
+  <j-page class="store-page detail-page">
+    <main>
+      <nav class="breadcrumb-line" aria-label="Breadcrumb">
+        <a href="/" data-jv-router>Catalog</a><span>/</span><span>Databases</span><span>/</span><strong>MySQL</strong>
+      </nav>
+
+      <section class="detail-hero" aria-labelledby="mysql-title">
+        <span class="package-icon package-icon--mysql package-icon--large" aria-hidden="true">MY</span>
+        <div class="detail-hero__copy">
+          <div class="package-badges">
+            <j-badge class="trust-badge">Official</j-badge>
+            <j-badge class="preview-badge">Source kit</j-badge>
+          </div>
+          <span class="package-publisher">Nextera / mysql</span>
+          <h1 id="mysql-title">MySQL</h1>
+          <p>Stateful MySQL 8.4 with fenced storage, secret delivery, health checks, resource limits, and an operator-tested restore path.</p>
+        </div>
+      </section>
+
+      <j-alert class="readiness-alert">
+        <j-icon class="glyph-icon" aria-hidden="true">i</j-icon>
+        <div>
+          <strong>This is a reviewed source kit, not a registry release.</strong>
+          <p>The immutable package digest, publisher signature, SBOM, and install evidence will appear here after the publishing pipeline is live.</p>
+        </div>
+      </j-alert>
+
+      <div class="detail-layout">
+        <section class="detail-content" aria-labelledby="overview-title">
+          <j-card class="detail-card">
+            <j-card-section>
+              <span class="eyebrow">Operational design</span>
+              <h2 id="overview-title">What this kit protects</h2>
+              <p>The database files live on a NexRun volume with an exclusive fenced lease, not in the container's writable layer. Restart, redeploy, and daemon recovery preserve the data while the fencing epoch prevents a stale second writer.</p>
+              <ul class="feature-list">
+                <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>MySQL 8.4 OCI runtime</span></li>
+                <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>Required root password delivered as a scoped secret file</span></li>
+                <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>Readiness through <code>mysqladmin ping</code></span></li>
+                <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>Graceful 60-second termination period</span></li>
+                <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>Snapshot, logical, and point-in-time recovery guidance</span></li>
+              </ul>
+            </j-card-section>
+          </j-card>
+
+          <j-card class="detail-card">
+            <j-card-section>
+              <span class="eyebrow">Current source-kit flow</span>
+              <h2>Review before deployment</h2>
+              <j-list class="install-list">
+                <j-list-item><j-item-section class="step-number">1</j-item-section><j-item-section><j-item-label>Install and inspect NexRun</j-item-label><j-item-label>Run <code>nexrun doctor</code> on the target Linux runtime.</j-item-label></j-item-section></j-list-item>
+                <j-list-item><j-item-section class="step-number">2</j-item-section><j-item-section><j-item-label>Prepare storage and configuration</j-item-label><j-item-label>Create the data and configuration volumes, then place <code>my.cnf</code> on the read-only configuration volume.</j-item-label></j-item-section></j-list-item>
+                <j-list-item><j-item-section class="step-number">3</j-item-section><j-item-section><j-item-label>Create the scoped secret</j-item-label><j-item-label>Use NexRun secret tooling to create <code>mysql-root-password</code>; never place it in the manifest.</j-item-label></j-item-section></j-list-item>
+                <j-list-item><j-item-section class="step-number">4</j-item-section><j-item-section><j-item-label>Validate and deploy</j-item-label><j-item-label>Validate the IDEL workload locally before changing runtime state.</j-item-label></j-item-section></j-list-item>
+                <j-list-item><j-item-section class="step-number">5</j-item-section><j-item-section><j-item-label>Complete a restore drill</j-item-label><j-item-label>Retain measured RPO/RTO and restore evidence before production use.</j-item-label></j-item-section></j-list-item>
+              </j-list>
+              <pre class="command-block"><code>git clone https://github.com/nextera-one/nexrun.git
+cd nexrun
+nexrun doctor
+nexrun validate -f examples/mysql/mysql.idel.yaml
+nexrun deploy -f examples/mysql/mysql.idel.yaml</code></pre>
+            </j-card-section>
+          </j-card>
+        </section>
+
+        <aside class="requirement-column" aria-label="Package requirements">
+          <j-card class="requirement-card">
+            <j-card-section>
+              <span class="eyebrow">Runtime profile</span>
+              <dl class="requirement-list">
+                <div><dt>Runtime</dt><dd>OCI / containerd</dd></div>
+                <div><dt>CPU</dt><dd>2,000 millicores</dd></div>
+                <div><dt>Memory</dt><dd>2 GiB</dd></div>
+                <div><dt>Processes</dt><dd>512</dd></div>
+                <div><dt>Port</dt><dd>TCP 3306</dd></div>
+                <div><dt>Architectures</dt><dd>AMD64, ARM64</dd></div>
+              </dl>
+            </j-card-section>
+          </j-card>
+          <j-card class="requirement-card">
+            <j-card-section>
+              <span class="eyebrow">Instance configuration</span>
+              <h2>2 volumes</h2>
+              <p><code>mysql-data</code><br /><code>mysql-conf</code></p>
+              <j-separator></j-separator>
+              <h2>1 required secret</h2>
+              <p><code>mysql-root-password</code></p>
+            </j-card-section>
+          </j-card>
+          <j-card class="requirement-card requirement-card--warning">
+            <j-card-section>
+              <j-icon class="glyph-icon" aria-hidden="true">!</j-icon>
+              <h2>Production note</h2>
+              <p>Single-node MySQL is not database HA. Host loss causes downtime until the fenced volume is recovered or restored.</p>
+            </j-card-section>
+          </j-card>
+        </aside>
+      </div>
+    </main>
+  </j-page>
+</template>

@@ -1,0 +1,28 @@
+<template>
+  <j-layout class="store-layout">
+    <j-header class="store-header">
+      <j-toolbar class="store-toolbar">
+        <j-toolbar-title class="store-brand">
+          <a href="/" data-jv-router aria-label="NexRun Store home">
+            <span class="store-brand__mark" aria-hidden="true">N</span>
+            <span>NexRun <strong>Store</strong></span>
+          </a>
+        </j-toolbar-title>
+        <j-space></j-space>
+        <nav class="store-nav" aria-label="Primary navigation">
+          <j-button class="store-nav__link" variant="text" to="/">Catalog</j-button>
+          <j-button class="store-nav__link" variant="text" to="/security">Trust &amp; security</j-button>
+        </nav>
+      </j-toolbar>
+    </j-header>
+
+    <j-page-container class="store-main">
+      <router-view></router-view>
+    </j-page-container>
+
+    <j-footer class="store-footer">
+      <span>NexRun Store preview</span>
+      <span>Signed packages. Explicit trust. Reproducible operations.</span>
+    </j-footer>
+  </j-layout>
+</template>

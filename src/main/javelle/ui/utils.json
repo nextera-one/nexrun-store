@@ -1,0 +1,29 @@
+{
+  "utils": [
+    "event-bus",
+    "clone",
+    "colors",
+    "copy-to-clipboard",
+    "create-meta-mixin",
+    "create-uploader-component",
+    "date",
+    "debounce",
+    "dom",
+    "event",
+    "export-file",
+    "extend",
+    "format",
+    "frame-debounce",
+    "get-css-var",
+    "is",
+    "morph",
+    "noop",
+    "open-url",
+    "patterns",
+    "run-sequential-promises",
+    "scroll",
+    "set-css-var",
+    "throttle",
+    "uid"
+  ]
+}

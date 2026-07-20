@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "addressbar-color",
+    "app-fullscreen",
+    "app-visibility",
+    "bottom-sheet",
+    "clipboard",
+    "cookies",
+    "dark",
+    "dialog",
+    "edge-to-edge",
+    "icon-set",
+    "lang",
+    "loading",
+    "loading-bar",
+    "local-storage",
+    "meta",
+    "notify",
+    "platform",
+    "screen",
+    "session-storage",
+    "storage",
+    "theme"
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "appName": "NexRun Store",
+  "sourcePackage": "one.nextera.nexrun.store",
+  "pageFormat": "jvl",
+  "mvcKind": "basic",
+  "androidPackageId": "",
+  "iosBundleId": "",
+  "groupId": "one.nextera.nexrun",
+  "javelleVersion": "0.1.59",
+  "styles": [
+    {
+      "href": "/styles/app.css",
+      "source": "src/main/resources/styles/app.css",
+      "type": "css"
+    }
+  ],
+  "ui": {
+    "enabled": true,
+    "preset": "material3",
+    "darkMode": "auto",
+    "rtl": false,
+    "theme": {
+      "primary": "#6EE7B7",
+      "secondary": "#60A5FA",
+      "tertiary": "#A78BFA",
+      "error": "#FB7185",
+      "radius": "md",
+      "density": "comfortable"
+    },
+    "fonts": {
+      "provider": "google",
+      "mode": "self-host",
+      "families": [
+        {
+          "name": "Inter",
+          "weights": [400, 500, 700]
+        }
+      ],
+      "display": "swap"
+    },
+    "icons": {
+      "set": "material-symbols",
+      "style": "rounded",
+      "mode": "cdn",
+      "axes": {
+        "fill": 0,
+        "weight": 400,
+        "grade": 0,
+        "opticalSize": 24
+      }
+    }
+  },
+  "boot": [
+    "one.nextera.nexrun.store.boot.RouterBoot"
+  ],
+  "modes": {
+    "web": {
+      "enabled": true
+    },
+    "pwa": {
+      "enabled": false
+    },
+    "mobile": {
+      "enabled": false
+    },
+    "desktop": {
+      "enabled": false
+    },
+    "ssr": {
+      "enabled": false
+    }
+  },
+  "modules": {
+  },
+  "plugins": {
+    "addressbar-color": {
+      "enabled": false
+    },
+    "app-fullscreen": {
+      "enabled": false
+    },
+    "app-visibility": {
+      "enabled": false
+    },
+    "bottom-sheet": {
+      "enabled": false
+    },
+    "clipboard": {
+      "enabled": false
+    },
+    "cookies": {
+      "enabled": false
+    },
+    "dark": {
+      "enabled": false
+    },
+    "dialog": {
+      "enabled": false
+    },
+    "edge-to-edge": {
+      "enabled": false
+    },
+    "icon-set": {
+      "enabled": false
+    },
+    "lang": {
+      "enabled": false
+    },
+    "loading": {
+      "enabled": false
+    },
+    "loading-bar": {
+      "enabled": false
+    },
+    "local-storage": {
+      "enabled": false
+    },
+    "meta": {
+      "enabled": false
+    },
+    "notify": {
+      "enabled": false
+    },
+    "platform": {
+      "enabled": false
+    },
+    "screen": {
+      "enabled": false
+    },
+    "session-storage": {
+      "enabled": false
+    },
+    "storage": {
+      "enabled": false
+    },
+    "theme": {
+      "enabled": false
+    }
+  },
+  "directives": {
+    "close-popup": {
+      "enabled": false
+    },
+    "intersection": {
+      "enabled": false
+    },
+    "morph": {
+      "enabled": false
+    },
+    "mutation": {
+      "enabled": false
+    },
+    "ripple": {
+      "enabled": false
+    },
+    "scroll": {
+      "enabled": false
+    },
+    "scroll-fire": {
+      "enabled": false
+    },
+    "touch-hold": {
+      "enabled": false
+    },
+    "touch-pan": {
+      "enabled": false
+    },
+    "touch-repeat": {
+      "enabled": false
+    },
+    "touch-swipe": {
+      "enabled": false
+    }
+  },
+  "utils": {
+    "event-bus": {
+      "enabled": false
+    },
+    "clone": {
+      "enabled": false
+    },
+    "colors": {
+      "enabled": false
+    },
+    "copy-to-clipboard": {
+      "enabled": false
+    },
+    "create-meta-mixin": {
+      "enabled": false
+    },
+    "create-uploader-component": {
+      "enabled": false
+    },
+    "date": {
+      "enabled": false
+    },
+    "debounce": {
+      "enabled": false
+    },
+    "dom": {
+      "enabled": false
+    },
+    "event": {
+      "enabled": false
+    },
+    "export-file": {
+      "enabled": false
+    },
+    "extend": {
+      "enabled": false
+    },
+    "format": {
+      "enabled": false
+    },
+    "frame-debounce": {
+      "enabled": false
+    },
+    "get-css-var": {
+      "enabled": false
+    },
+    "is": {
+      "enabled": false
+    },
+    "morph": {
+      "enabled": false
+    },
+    "noop": {
+      "enabled": false
+    },
+    "open-url": {
+      "enabled": false
+    },
+    "patterns": {
+      "enabled": false
+    },
+    "run-sequential-promises": {
+      "enabled": false
+    },
+    "scroll": {
+      "enabled": false
+    },
+    "set-css-var": {
+      "enabled": false
+    },
+    "throttle": {
+      "enabled": false
+    },
+    "uid": {
+      "enabled": false
+    }
+  }
+}

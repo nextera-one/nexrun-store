@@ -1,0 +1,22 @@
+{
+  "id": "law.one.nextera.nexrun.store",
+  "version": "1.0.0",
+  "title": "NexRun Store App Law",
+  "articles": [
+    {
+      "id": "A1",
+      "type": "right",
+      "text": "Catalog browsing does not require access to a user's NexRun runtime or local data."
+    },
+    {
+      "id": "A2",
+      "type": "obligation",
+      "text": "The Store must distinguish cryptographic integrity from publisher trust."
+    },
+    {
+      "id": "A3",
+      "type": "obligation",
+      "text": "The Store must not present a source kit as a published immutable release."
+    }
+  ]
+}

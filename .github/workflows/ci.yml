@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [development]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Compile and test Java
+        run: mvn -B test
+
+      - name: Resolve released Javelle CLI
+        run: >-
+          mvn -B -q dependency:copy
+          -Dartifact=one.nextera.openat.javelle:javelle-cli:0.1.59
+          -DoutputDirectory=target/ci
+
+      - name: Validate routes and JVL
+        run: |
+          java -jar target/ci/javelle-cli-0.1.59.jar dev --check --mode web
+          java -jar target/ci/javelle-cli-0.1.59.jar jvl src/main/resources --check --strict
+          java -jar target/ci/javelle-cli-0.1.59.jar jvl src/main/resources
+          java -jar target/ci/javelle-cli-0.1.59.jar build --mode web
+
+      - name: Validate JSON resources
+        run: >-
+          jq empty catalog/catalog.json schemas/catalog-entry.schema.json
+          javelle.config.json src/main/javelle/package/manifest.json
+          src/main/javelle/package/law.json src/main/javelle/package/permissions.json
+
+      - name: Enforce Java-first templates
+        run: |
+          if rg -n --glob '*.jvl' --glob '*.html' '<(button|input|textarea|select|option|form|dialog)([[:space:]>])' src/main/resources/one; then
+            echo 'Native application controls are forbidden.' >&2
+            exit 1
+          fi
+          if rg -n --glob '*.jvl' --glob '*.html' '<script([[:space:]>])|\b(window|document|navigator|localStorage|sessionStorage)\b' src/main/resources/one; then
+            echo 'Application-owned JavaScript and direct browser APIs are forbidden.' >&2
+            exit 1
+          fi

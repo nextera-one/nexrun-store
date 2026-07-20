@@ -1,0 +1,21 @@
+{
+  "anchorRouting": 1,
+  "name": "NexRun Store",
+  "sdk": "@nextera.one/anchor-routing-core",
+  "cases": ["page", "param", "dot", "intent"],
+  "primaryCase": "intent",
+  "routingMode": "registry",
+  "internalAnchorRouting": true,
+  "publicSeoUrls": true,
+  "syntax": {
+    "anchorPrefix": "/~",
+    "pageCaseSeparator": "~",
+    "paramCaseSeparator": ";",
+    "dotCaseSeparator": ".",
+    "intentCaseBinding": "name.value"
+  },
+  "escapeMode": "percent",
+  "registryVisibility": "private",
+  "docs": "/docs/anchor-routing",
+  "playground": "/anchor-routing/playground"
+}

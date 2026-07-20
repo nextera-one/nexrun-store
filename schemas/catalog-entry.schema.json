@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://store.nexrun.dev/schemas/catalog-entry.schema.json",
+  "title": "NexRun catalog entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "publisher",
+    "slug",
+    "name",
+    "summary",
+    "category",
+    "trustLevel",
+    "availability",
+    "source",
+    "platforms",
+    "architectures",
+    "requirements"
+  ],
+  "properties": {
+    "publisher": { "$ref": "#/$defs/slug" },
+    "slug": { "$ref": "#/$defs/slug" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "category": { "type": "string", "minLength": 1, "maxLength": 40 },
+    "license": { "type": "string", "maxLength": 80 },
+    "trustLevel": { "enum": ["official", "verified", "community"] },
+    "availability": { "enum": ["source-kit", "published", "withdrawn"] },
+    "source": { "type": "string", "format": "uri" },
+    "documentation": { "type": "string", "format": "uri" },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["linux", "chromeos-linux", "macos-client", "windows-client"] }
+    },
+    "architectures": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["amd64", "arm64"] }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "reference", "manifestDigest", "signer"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
+        "reference": { "type": "string", "minLength": 1 },
+        "manifestDigest": { "$ref": "#/$defs/digest" },
+        "signer": { "type": "string", "minLength": 1 },
+        "publishedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime", "ports", "volumes", "secrets", "capabilities"],
+      "properties": {
+        "runtime": { "enum": ["static", "process", "oci"] },
+        "minimumNexRun": { "type": "string" },
+        "maximumNexRun": { "type": "string" },
+        "cpuMillis": { "type": "integer", "minimum": 1 },
+        "memoryBytes": { "type": "integer", "minimum": 1 },
+        "ports": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 65535 } },
+        "volumes": { "type": "array", "items": { "$ref": "#/$defs/slug" } },
+        "secrets": { "type": "array", "items": { "$ref": "#/$defs/slug" } },
+        "capabilities": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sbom": { "type": "string", "format": "uri" },
+        "provenance": { "type": "string", "format": "uri" },
+        "vulnerabilityReport": { "type": "string", "format": "uri" },
+        "conformance": { "type": "string", "format": "uri" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "availability": { "const": "published" } } },
+      "then": { "required": ["release", "evidence"] }
+    }
+  ],
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

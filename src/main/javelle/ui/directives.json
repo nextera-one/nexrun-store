@@ -1,0 +1,15 @@
+{
+  "directives": [
+    "close-popup",
+    "intersection",
+    "morph",
+    "mutation",
+    "ripple",
+    "scroll",
+    "scroll-fire",
+    "touch-hold",
+    "touch-pan",
+    "touch-repeat",
+    "touch-swipe"
+  ]
+}

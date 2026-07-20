@@ -1,0 +1,67 @@
+[
+  {
+    "publisher": "nextera",
+    "slug": "mysql",
+    "name": "MySQL",
+    "summary": "A stateful MySQL 8.4 source kit with fenced storage, secret delivery, health checks, and a restore-drill runbook.",
+    "category": "database",
+    "license": "GPL-2.0-only",
+    "trustLevel": "official",
+    "availability": "source-kit",
+    "source": "https://github.com/nextera-one/nexrun/tree/main/examples/mysql",
+    "documentation": "https://github.com/nextera-one/nexrun/blob/main/examples/mysql/README.md",
+    "platforms": ["linux", "chromeos-linux", "macos-client", "windows-client"],
+    "architectures": ["amd64", "arm64"],
+    "requirements": {
+      "runtime": "oci",
+      "cpuMillis": 2000,
+      "memoryBytes": 2147483648,
+      "ports": [3306],
+      "volumes": ["mysql-data", "mysql-conf"],
+      "secrets": ["mysql-root-password"],
+      "capabilities": []
+    }
+  },
+  {
+    "publisher": "nextera",
+    "slug": "static-spa",
+    "name": "Static SPA",
+    "summary": "Serve a compiled single-page application directly from NexRun without a container or sidecar web server.",
+    "category": "web",
+    "trustLevel": "official",
+    "availability": "source-kit",
+    "source": "https://github.com/nextera-one/nexrun/blob/main/examples/static-spa.idel.yaml",
+    "documentation": "https://github.com/nextera-one/nexrun/blob/main/README.md",
+    "platforms": ["linux", "chromeos-linux"],
+    "architectures": ["amd64", "arm64"],
+    "requirements": {
+      "runtime": "static",
+      "ports": [8080],
+      "volumes": [],
+      "secrets": [],
+      "capabilities": []
+    }
+  },
+  {
+    "publisher": "nextera",
+    "slug": "dobase",
+    "name": "Dobase",
+    "summary": "A durable single-writer Dobase source kit with scoped secrets, persistent data, backups, and explicit production gates.",
+    "category": "database",
+    "trustLevel": "official",
+    "availability": "source-kit",
+    "source": "https://github.com/nextera-one/nexrun/tree/main/examples/dobase",
+    "documentation": "https://github.com/nextera-one/nexrun/blob/main/examples/dobase/README.md",
+    "platforms": ["linux"],
+    "architectures": ["amd64", "arm64"],
+    "requirements": {
+      "runtime": "oci",
+      "cpuMillis": 4000,
+      "memoryBytes": 8589934592,
+      "ports": [8888],
+      "volumes": ["dobase-data", "dobase-backups"],
+      "secrets": ["dobase-jwt-secret", "dobase-object-encryption-key", "dobase-redis-uri", "dobase-admin-password"],
+      "capabilities": []
+    }
+  }
+]

@@ -1,0 +1,7 @@
+/target/
+/.javelle/
+/.idea/
+/.vscode/
+*.log
+src/main/resources/one/nextera/nexrun/store/layouts/*.html
+src/main/resources/one/nextera/nexrun/store/pages/*.html

@@ -1,0 +1,10 @@
+<template>
+  <j-page class="store-page not-found-page">
+    <div class="not-found-card">
+      <span class="eyebrow">404</span>
+      <h1>404</h1>
+      <p>This package or page is not in the catalog.</p>
+      <j-button class="primary-action" variant="filled" to="/">Return to catalog</j-button>
+    </div>
+  </j-page>
+</template>

@@ -1,0 +1,16 @@
+{
+  "id": "one.nextera.nexrun.store",
+  "name": "NexRun Store",
+  "version": "1.0.0",
+  "runtime": "javelle",
+  "entry": "app/index.html",
+  "minRuntime": "0.1.0",
+  "author": {
+    "name": "Nextera",
+    "softId": "~nextera"
+  },
+  "permissions": [],
+  "icon": "meta/icon.visig.json",
+  "law": "law.json",
+  "signature": "signature.jws"
+}

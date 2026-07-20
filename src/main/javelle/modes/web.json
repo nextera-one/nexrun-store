@@ -1,0 +1,13 @@
+{
+  "mode": "web",
+  "description": "Browser app served from src/main/resources.",
+  "entry": "src/main/resources/index.html",
+  "output": "target/javelle/web",
+  "router": {
+    "mode": "history",
+    "base": "/",
+    "anchorRouting": true,
+    "historyFallback": true,
+    "transition": "fade"
+  }
+}

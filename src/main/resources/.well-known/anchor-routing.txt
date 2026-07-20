@@ -1,0 +1,17 @@
+Anchor-Routing: 1
+Name: NexRun Store
+SDK: @nextera.one/anchor-routing-core
+Cases: page,param,dot,intent
+Primary-Case: intent
+Routing-Mode: registry
+Internal-Anchor-Routing: true
+Public-SEO-URLs: true
+Anchor-Prefix: /~
+Page-Case-Separator: ~
+Param-Case-Separator: ;
+Dot-Case-Separator: .
+Intent-Case-Binding: name.value
+Escape-Mode: percent
+Registry-Visibility: private
+Docs: /docs/anchor-routing
+Playground: /anchor-routing/playground

@@ -1,0 +1,36 @@
+<template>
+  <j-page class="store-page security-page">
+    <main>
+      <section class="security-hero" aria-labelledby="security-title">
+        <span class="eyebrow">Trust &amp; security</span>
+        <h1 id="security-title">Know what is signed. Decide whom to trust.</h1>
+        <p>NexRun verifies bytes and signatures. The Store layers publisher identity, release policy, build evidence, and operational conformance on top.</p>
+      </section>
+
+      <section class="catalog-section" aria-labelledby="levels-title">
+        <div class="section-heading"><div><span class="eyebrow">Publisher levels</span><h2 id="levels-title">Three labels with different promises</h2></div></div>
+        <div class="trust-grid">
+          <j-card class="trust-card trust-card--official"><j-card-section><j-icon class="glyph-icon" aria-hidden="true">O</j-icon><h3>Official</h3><p>Maintained by Nextera and required to pass every declared publishing and conformance gate.</p></j-card-section></j-card>
+          <j-card class="trust-card"><j-card-section><j-icon class="glyph-icon" aria-hidden="true">V</j-icon><h3>Verified publisher</h3><p>Publisher identity is verified and automated gates pass, but Nextera does not maintain the application.</p></j-card-section></j-card>
+          <j-card class="trust-card"><j-card-section><j-icon class="glyph-icon" aria-hidden="true">C</j-icon><h3>Community</h3><p>Content can be cryptographically intact without carrying a Nextera endorsement. Review the signer and evidence explicitly.</p></j-card-section></j-card>
+        </div>
+      </section>
+
+      <section class="catalog-section security-principles" aria-labelledby="principles-title">
+        <div class="section-heading"><div><span class="eyebrow">Release policy</span><h2 id="principles-title">What “published” must mean</h2></div></div>
+        <j-list class="principle-list">
+          <j-list-item><j-item-section><j-icon class="glyph-icon" aria-hidden="true">01</j-icon></j-item-section><j-item-section><j-item-label>Immutable identity</j-item-label><j-item-label>Every installed version resolves to a SHA-256 manifest digest before approval.</j-item-label></j-item-section></j-list-item>
+          <j-list-item><j-item-section><j-icon class="glyph-icon" aria-hidden="true">02</j-icon></j-item-section><j-item-section><j-item-label>Explicit publisher policy</j-item-label><j-item-label>A valid signature is accepted only when its signer matches a trusted publisher identity.</j-item-label></j-item-section></j-list-item>
+          <j-list-item><j-item-section><j-icon class="glyph-icon" aria-hidden="true">03</j-icon></j-item-section><j-item-section><j-item-label>Traceable build</j-item-label><j-item-label>Signed provenance connects the release to declared source, tools, providers, and output digest.</j-item-label></j-item-section></j-list-item>
+          <j-list-item><j-item-section><j-icon class="glyph-icon" aria-hidden="true">04</j-icon></j-item-section><j-item-section><j-item-label>Visible authority</j-item-label><j-item-label>Ports, volumes, secrets, resources, identities, and capabilities are shown before deployment.</j-item-label></j-item-section></j-list-item>
+          <j-list-item><j-item-section><j-icon class="glyph-icon" aria-hidden="true">05</j-icon></j-item-section><j-item-section><j-item-label>Operational evidence</j-item-label><j-item-label>Stateful official packages require restart, backup, and restore evidence—not only schema validation.</j-item-label></j-item-section></j-list-item>
+        </j-list>
+      </section>
+
+      <j-alert class="security-alert">
+        <j-icon class="glyph-icon" aria-hidden="true">✓</j-icon>
+        <div><strong>The public Store never talks directly to a privileged NexRun daemon.</strong><p>It produces a reviewable installation plan. NexRun performs local verification and deployment through its authenticated runtime boundary.</p></div>
+      </j-alert>
+    </main>
+  </j-page>
+</template>
