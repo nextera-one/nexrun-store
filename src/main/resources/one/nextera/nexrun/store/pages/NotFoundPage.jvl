@@ -1,10 +1,14 @@
 <template>
   <j-page class="store-page not-found-page">
     <div class="not-found-card">
-      <span class="eyebrow">404</span>
+      <span class="icon-tile" aria-hidden="true"><j-icon name="search_off"></j-icon></span>
+      <span class="eyebrow">Not in the catalog</span>
       <h1>404</h1>
-      <p>This package or page is not in the catalog.</p>
-      <j-button class="primary-action" variant="filled" to="/">Return to catalog</j-button>
+      <p>This package or page is not in the catalog. It may be unpublished, renamed, or still waiting on its verification gates.</p>
+      <div class="hero-actions">
+        <j-button class="primary-action" variant="filled" to="/">Return to catalog</j-button>
+        <j-button class="secondary-action" variant="text" to="/security">Trust model</j-button>
+      </div>
     </div>
   </j-page>
 </template>

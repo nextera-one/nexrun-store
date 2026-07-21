@@ -33,7 +33,11 @@
       "families": [
         {
           "name": "Inter",
-          "weights": [400, 500, 700]
+          "weights": [400, 500, 600, 700, 800]
+        },
+        {
+          "name": "JetBrains Mono",
+          "weights": [400, 500, 600, 700]
         }
       ],
       "display": "swap"

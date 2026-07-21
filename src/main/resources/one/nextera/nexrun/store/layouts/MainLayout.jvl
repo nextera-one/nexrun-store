@@ -12,6 +12,11 @@
         <nav class="store-nav" aria-label="Primary navigation">
           <j-button class="store-nav__link" variant="text" to="/">Catalog</j-button>
           <j-button class="store-nav__link" variant="text" to="/security">Trust &amp; security</j-button>
+          <span class="store-nav__sep" aria-hidden="true"></span>
+          <a class="store-nav__external" href="https://github.com/nextera-one/nexrun" target="_blank" rel="noopener">
+            Get NexRun
+            <j-icon name="open_in_new" aria-hidden="true"></j-icon>
+          </a>
         </nav>
       </j-toolbar>
     </j-header>
@@ -21,8 +26,53 @@
     </j-page-container>
 
     <j-footer class="store-footer">
-      <span>NexRun Store preview</span>
-      <span>Signed packages. Explicit trust. Reproducible operations.</span>
+      <div class="store-footer__grid">
+        <div class="store-footer__brand">
+          <a href="/" data-jv-router aria-label="NexRun Store home" class="store-brand">
+            <span class="store-brand__mark" aria-hidden="true">N</span>
+            <span>NexRun <strong>Store</strong></span>
+          </a>
+          <p>
+            The public catalog for signed, versioned NexRun application packages.
+            Inspect requirements and trust evidence before anything reaches your host.
+          </p>
+        </div>
+        <div class="store-footer__col">
+          <h3>Store</h3>
+          <ul>
+            <li><a href="/" data-jv-router>Catalog</a></li>
+            <li><a href="/security" data-jv-router>Trust &amp; security</a></li>
+          </ul>
+        </div>
+        <div class="store-footer__col">
+          <h3>Source kits</h3>
+          <ul>
+            <li><a href="/apps/nextera/mysql" data-jv-router>MySQL</a></li>
+            <li><a href="/#featured" data-jv-router>All packages</a></li>
+          </ul>
+        </div>
+        <div class="store-footer__col">
+          <h3>Ecosystem</h3>
+          <ul>
+            <li>
+              <a href="https://github.com/nextera-one/nexrun" target="_blank" rel="noopener">
+                NexRun on GitHub <j-icon name="open_in_new" aria-hidden="true"></j-icon>
+              </a>
+            </li>
+            <li>
+              <a href="https://javelle.openat.nextera.one" target="_blank" rel="noopener">
+                Javelle framework <j-icon name="open_in_new" aria-hidden="true"></j-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="store-footer__legal">
+        <div>
+          <span class="mono-note">nexrun-store · catalog preview</span>
+          <span>Signed packages. Explicit trust. Reproducible operations.</span>
+        </div>
+      </div>
     </j-footer>
   </j-layout>
 </template>

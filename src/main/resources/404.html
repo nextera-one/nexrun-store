@@ -3,16 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#05080f">
     <title>404 - NexRun Store</title>
+    <link rel="stylesheet" href="/styles/javelle-icons.css">
     <link rel="stylesheet" href="/styles/app.css">
   </head>
   <body>
     <j-page class="not-found-page">
       <div class="not-found-card">
-        <span class="eyebrow">404</span>
+        <span class="icon-tile" aria-hidden="true"><j-icon name="search_off"></j-icon></span>
+        <span class="eyebrow">Not in the catalog</span>
         <h1>404</h1>
-        <p>This package or page is not in the catalog.</p>
-        <a class="primary-action" href="/">Return to catalog</a>
+        <p>This package or page is not in the catalog. It may be unpublished, renamed, or still waiting on its verification gates.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="/">Return to catalog</a>
+          <a class="secondary-action" href="/security">Trust model</a>
+        </div>
       </div>
     </j-page>
   </body>

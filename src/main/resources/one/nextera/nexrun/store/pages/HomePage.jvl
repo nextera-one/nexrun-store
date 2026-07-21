@@ -3,26 +3,82 @@
     <main>
       <section class="catalog-hero" aria-labelledby="catalog-title">
         <div class="catalog-hero__copy">
-          <j-chip class="status-chip status-chip--official">Official catalog preview</j-chip>
-          <h1 id="catalog-title">Ready-to-run applications, with trust you can inspect.</h1>
+          <j-chip class="status-chip--official">
+            <j-icon name="verified" aria-hidden="true"></j-icon>
+            Official catalog preview
+          </j-chip>
+          <h1 id="catalog-title">Ready-to-run applications, with <em>trust you can inspect</em>.</h1>
           <p>
             Discover NexRun application packages with declared resources, secrets, storage,
             compatibility, and verification evidence before anything reaches your host.
           </p>
           <div class="hero-actions">
-            <j-button class="primary-action" variant="filled" to="#featured">Explore source kits</j-button>
+            <j-button class="primary-action" variant="filled" to="#featured">
+              Browse packages
+              <j-icon name="arrow_downward" aria-hidden="true"></j-icon>
+            </j-button>
             <j-button class="secondary-action" variant="text" to="/security">How verification works</j-button>
           </div>
+          <div class="hero-facts" aria-label="Catalog facts">
+            <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>3 source kits</span>
+            <span><j-icon name="verified_user" aria-hidden="true"></j-icon>1 official publisher</span>
+            <span><j-icon name="fingerprint" aria-hidden="true"></j-icon>SHA-256 sealed releases</span>
+          </div>
         </div>
+
         <j-card class="assurance-card">
           <j-card-section>
-            <span class="eyebrow">Every published release</span>
+            <div class="record-head">
+              <j-icon name="receipt_long" aria-hidden="true"></j-icon>
+              <strong>Release record</strong>
+              <j-chip>required fields</j-chip>
+            </div>
             <ul class="assurance-list">
-              <li><j-icon class="glyph-icon" aria-hidden="true">#</j-icon><span>Immutable SHA-256 identity</span></li>
-              <li><j-icon class="glyph-icon" aria-hidden="true">✓</j-icon><span>Explicit publisher trust</span></li>
-              <li><j-icon class="glyph-icon" aria-hidden="true">E</j-icon><span>Install and conformance evidence</span></li>
-              <li><j-icon class="glyph-icon" aria-hidden="true">R</j-icon><span>Visible runtime requirements</span></li>
+              <li>
+                <span class="icon-tile"><j-icon name="fingerprint" aria-hidden="true"></j-icon></span>
+                <div>
+                  <strong>Immutable identity</strong>
+                  <small>sha256 manifest digest</small>
+                </div>
+                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+              </li>
+              <li>
+                <span class="icon-tile"><j-icon name="verified_user" aria-hidden="true"></j-icon></span>
+                <div>
+                  <strong>Publisher trust</strong>
+                  <small>signer matches explicit policy</small>
+                </div>
+                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+              </li>
+              <li>
+                <span class="icon-tile"><j-icon name="schema" aria-hidden="true"></j-icon></span>
+                <div>
+                  <strong>Traceable build</strong>
+                  <small>signed provenance chain</small>
+                </div>
+                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+              </li>
+              <li>
+                <span class="icon-tile"><j-icon name="fact_check" aria-hidden="true"></j-icon></span>
+                <div>
+                  <strong>Operational evidence</strong>
+                  <small>install · restart · restore</small>
+                </div>
+                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+              </li>
+              <li>
+                <span class="icon-tile"><j-icon name="policy" aria-hidden="true"></j-icon></span>
+                <div>
+                  <strong>Endorsement level</strong>
+                  <small>official · verified · community</small>
+                </div>
+                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+              </li>
             </ul>
+            <p class="record-foot">
+              Digest and signature values appear on each package once the publishing
+              pipeline goes live — until then, every entry stays a reviewed <code>source-kit</code>.
+            </p>
           </j-card-section>
         </j-card>
       </section>
@@ -40,91 +96,134 @@
           <j-card class="package-card package-card--featured">
             <j-card-section>
               <div class="package-card__topline">
-                <span class="package-icon package-icon--mysql" aria-hidden="true">MY</span>
+                <span class="package-icon package-icon--mysql" aria-hidden="true">
+                  <j-icon name="database"></j-icon>
+                </span>
                 <div class="package-badges">
-                  <j-badge class="trust-badge">Official</j-badge>
+                  <j-badge class="trust-badge">
+                    <j-icon name="verified" aria-hidden="true"></j-icon>
+                    Official
+                  </j-badge>
                   <j-badge class="preview-badge">Source kit</j-badge>
                 </div>
               </div>
-              <div>
-                <span class="package-publisher">Nextera</span>
-                <h3>MySQL</h3>
-                <p>MySQL 8.4 with fenced persistent storage, secret delivery, health checks, and a restore-drill runbook.</p>
+              <div class="package-card__body">
+                <span class="package-publisher">
+                  Nextera
+                  <j-icon name="verified" aria-hidden="true"></j-icon>
+                </span>
+                <h3>MySQL <span class="package-version">8.4</span></h3>
+                <p>Stateful MySQL with fenced persistent storage, secret delivery, health checks, and a restore-drill runbook.</p>
               </div>
-              <div class="package-meta">
-                <j-chip>OCI</j-chip>
-                <j-chip>2 GiB RAM</j-chip>
-                <j-chip>2 volumes</j-chip>
-                <j-chip>1 secret</j-chip>
+              <div class="spec-grid" aria-label="Runtime requirements">
+                <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>OCI runtime</span>
+                <span><j-icon name="memory" aria-hidden="true"></j-icon>2 GiB RAM</span>
+                <span><j-icon name="hard_drive" aria-hidden="true"></j-icon>2 volumes</span>
+                <span><j-icon name="key" aria-hidden="true"></j-icon>1 secret</span>
               </div>
             </j-card-section>
             <j-card-actions>
-              <j-button class="card-action" variant="filled" to="/apps/nextera/mysql">Review package</j-button>
+              <span class="pipeline-status pipeline-status--muted">
+                <j-icon name="tag" aria-hidden="true"></j-icon>
+                nextera/mysql
+              </span>
+              <j-button class="card-action card-action--stretch" variant="filled" to="/apps/nextera/mysql">
+                Review package
+                <j-icon name="arrow_forward" aria-hidden="true"></j-icon>
+              </j-button>
             </j-card-actions>
           </j-card>
 
           <j-card class="package-card">
             <j-card-section>
               <div class="package-card__topline">
-                <span class="package-icon package-icon--web" aria-hidden="true">WEB</span>
+                <span class="package-icon package-icon--web" aria-hidden="true">
+                  <j-icon name="language"></j-icon>
+                </span>
                 <div class="package-badges">
-                  <j-badge class="trust-badge">Official</j-badge>
+                  <j-badge class="trust-badge">
+                    <j-icon name="verified" aria-hidden="true"></j-icon>
+                    Official
+                  </j-badge>
                   <j-badge class="preview-badge">Source kit</j-badge>
                 </div>
               </div>
-              <div>
-                <span class="package-publisher">Nextera</span>
+              <div class="package-card__body">
+                <span class="package-publisher">
+                  Nextera
+                  <j-icon name="verified" aria-hidden="true"></j-icon>
+                </span>
                 <h3>Static SPA</h3>
-                <p>Serve a compiled single-page application directly from NexRun—no container or web-server sidecar.</p>
+                <p>Serve a compiled single-page application directly from NexRun — no container or web-server sidecar.</p>
               </div>
-              <div class="package-meta">
-                <j-chip>Static</j-chip>
-                <j-chip>No secrets</j-chip>
-                <j-chip>Linux</j-chip>
+              <div class="spec-grid" aria-label="Runtime requirements">
+                <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>Static runtime</span>
+                <span><j-icon name="lan" aria-hidden="true"></j-icon>Port 8080</span>
+                <span><j-icon name="hard_drive" aria-hidden="true"></j-icon>No volumes</span>
+                <span><j-icon name="key" aria-hidden="true"></j-icon>No secrets</span>
               </div>
             </j-card-section>
             <j-card-actions>
-              <span class="muted-action">Detail page coming next</span>
+              <span class="pipeline-status">
+                <j-icon name="schedule" aria-hidden="true"></j-icon>
+                Detail page in progress
+              </span>
             </j-card-actions>
           </j-card>
 
           <j-card class="package-card">
             <j-card-section>
               <div class="package-card__topline">
-                <span class="package-icon package-icon--dobase" aria-hidden="true">DB</span>
+                <span class="package-icon package-icon--dobase" aria-hidden="true">
+                  <j-icon name="storage"></j-icon>
+                </span>
                 <div class="package-badges">
-                  <j-badge class="trust-badge">Official</j-badge>
+                  <j-badge class="trust-badge">
+                    <j-icon name="verified" aria-hidden="true"></j-icon>
+                    Official
+                  </j-badge>
                   <j-badge class="preview-badge">Source kit</j-badge>
                 </div>
               </div>
-              <div>
-                <span class="package-publisher">Nextera</span>
+              <div class="package-card__body">
+                <span class="package-publisher">
+                  Nextera
+                  <j-icon name="verified" aria-hidden="true"></j-icon>
+                </span>
                 <h3>Dobase</h3>
                 <p>Durable single-writer deployment with scoped secrets, persistent data, backups, and production gates.</p>
               </div>
-              <div class="package-meta">
-                <j-chip>OCI</j-chip>
-                <j-chip>8 GiB RAM</j-chip>
-                <j-chip>4 secrets</j-chip>
+              <div class="spec-grid" aria-label="Runtime requirements">
+                <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>OCI runtime</span>
+                <span><j-icon name="memory" aria-hidden="true"></j-icon>8 GiB RAM</span>
+                <span><j-icon name="hard_drive" aria-hidden="true"></j-icon>2 volumes</span>
+                <span><j-icon name="key" aria-hidden="true"></j-icon>4 secrets</span>
               </div>
             </j-card-section>
             <j-card-actions>
-              <span class="muted-action">Publishing blocked on image digest</span>
+              <span class="pipeline-status">
+                <j-icon name="pending" aria-hidden="true"></j-icon>
+                Awaiting image digest
+              </span>
             </j-card-actions>
           </j-card>
         </div>
       </section>
 
-      <section class="catalog-section trust-callout" aria-labelledby="trust-title">
+      <section class="trust-callout" aria-labelledby="trust-title">
+        <span class="icon-tile" aria-hidden="true"><j-icon name="policy"></j-icon></span>
         <div>
           <span class="eyebrow">Trust is a policy</span>
-          <h2 id="trust-title">A signature is the beginning of verification—not the end.</h2>
+          <h2 id="trust-title">A signature is the beginning of verification — not the end.</h2>
           <p>
             NexRun checks content integrity and signer possession. The Store adds publisher identity,
             immutable release metadata, evidence, and an explicit level of endorsement.
           </p>
         </div>
-        <j-button class="secondary-action" variant="text" to="/security">Read the trust model</j-button>
+        <j-button class="secondary-action" variant="text" to="/security">
+          Read the trust model
+          <j-icon name="arrow_forward" aria-hidden="true"></j-icon>
+        </j-button>
       </section>
 
       <section class="catalog-section lifecycle-section" aria-labelledby="lifecycle-title">
@@ -133,12 +232,49 @@
             <span class="eyebrow">From source to instance</span>
             <h2 id="lifecycle-title">One transparent release path</h2>
           </div>
+          <p>Every stage leaves signed, inspectable output for the next one.</p>
         </div>
         <div class="lifecycle-grid">
-          <j-card><j-card-section><span>01</span><h3>Validate</h3><p>Strict IDEL parsing and declared capability review.</p></j-card-section></j-card>
-          <j-card><j-card-section><span>02</span><h3>Build</h3><p>Constrained build with signed provenance and immutable output.</p></j-card-section></j-card>
-          <j-card><j-card-section><span>03</span><h3>Verify</h3><p>Install, health, restart, and evidence gates on a clean host.</p></j-card-section></j-card>
-          <j-card><j-card-section><span>04</span><h3>Deploy</h3><p>The user reviews requirements before NexRun creates an instance.</p></j-card-section></j-card>
+          <j-card class="pipeline-step">
+            <j-card-section>
+              <div class="pipeline-step__head">
+                <span class="pipeline-step__num">01</span>
+                <j-icon name="rule" aria-hidden="true"></j-icon>
+              </div>
+              <h3>Validate</h3>
+              <p>Strict IDEL parsing and declared capability review.</p>
+            </j-card-section>
+          </j-card>
+          <j-card class="pipeline-step">
+            <j-card-section>
+              <div class="pipeline-step__head">
+                <span class="pipeline-step__num">02</span>
+                <j-icon name="build" aria-hidden="true"></j-icon>
+              </div>
+              <h3>Build</h3>
+              <p>Constrained build with signed provenance and immutable output.</p>
+            </j-card-section>
+          </j-card>
+          <j-card class="pipeline-step">
+            <j-card-section>
+              <div class="pipeline-step__head">
+                <span class="pipeline-step__num">03</span>
+                <j-icon name="verified" aria-hidden="true"></j-icon>
+              </div>
+              <h3>Verify</h3>
+              <p>Install, health, restart, and evidence gates on a clean host.</p>
+            </j-card-section>
+          </j-card>
+          <j-card class="pipeline-step">
+            <j-card-section>
+              <div class="pipeline-step__head">
+                <span class="pipeline-step__num">04</span>
+                <j-icon name="rocket_launch" aria-hidden="true"></j-icon>
+              </div>
+              <h3>Deploy</h3>
+              <p>The user reviews requirements before NexRun creates an instance.</p>
+            </j-card-section>
+          </j-card>
         </div>
       </section>
     </main>

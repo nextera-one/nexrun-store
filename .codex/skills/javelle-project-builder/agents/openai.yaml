@@ -1,0 +1,4 @@
+interface:
+  display_name: "Javelle Project Builder"
+  short_description: "Build Java-first Javelle apps"
+  default_prompt: "Use $javelle-project-builder to build a Java-first Javelle app with Maven artifacts and Javelle components."

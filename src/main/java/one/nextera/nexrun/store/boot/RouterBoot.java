@@ -14,8 +14,8 @@ public final class RouterBoot implements JavelleBoot {
   @Override
   public void boot(JavelleApp app) {
     app.route("/", HomePage.class, "MainLayout");
-    app.route("/apps/nextera/mysql", MysqlAppPage.class);
-    app.route("/security", SecurityPage.class);
+    app.route("/apps/nextera/mysql", MysqlAppPage.class, "MainLayout");
+    app.route("/security", SecurityPage.class, "MainLayout");
     app.notFound(NotFoundPage.class);
   }
 }
