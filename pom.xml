@@ -11,7 +11,9 @@
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javelle.version>0.1.59</javelle.version>
+    <javelle.version>0.1.69</javelle.version>
+    <junit.version>5.11.4</junit.version>
+    <json-schema-validator.version>1.5.1</json-schema-validator.version>
   </properties>
 
   <dependencyManagement>
@@ -36,6 +38,24 @@
       <groupId>one.nextera.openat.javelle</groupId>
       <artifactId>javelle-ui</artifactId>
     </dependency>
+
+    <!--
+      The catalog is the trust surface of this repository, so it is validated by
+      `mvn test` and not only by CI. See CatalogSchemaTest and CatalogDriftTest.
+    -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.networknt</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>${json-schema-validator.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -46,6 +66,22 @@
         <version>3.13.0</version>
         <configuration>
           <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+        <configuration>
+          <!--
+            `mvn test` must never pass vacuously on this repository: the catalog
+            tests are the only thing standing between a bad record and the site.
+          -->
+          <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
+          <systemPropertyVariables>
+            <nexrunStore.basedir>${project.basedir}</nexrunStore.basedir>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
     </plugins>

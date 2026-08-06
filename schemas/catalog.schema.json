@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NexRun catalog",
+  "description": "The catalog document: an array of catalog entries. Exists so that catalog/catalog.json can be validated as a whole by a generic JSON Schema tool; the per-record contract lives in catalog-entry.schema.json. This file deliberately declares no $id: an absolute $id would make the sibling $ref below resolve to a network URL, and CI must never depend on a live domain to tell you your catalog is malformed.",
+  "type": "array",
+  "minItems": 1,
+  "items": { "$ref": "./catalog-entry.schema.json" }
+}

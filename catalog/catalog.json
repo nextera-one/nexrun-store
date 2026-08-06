@@ -16,6 +16,7 @@
       "runtime": "oci",
       "cpuMillis": 2000,
       "memoryBytes": 2147483648,
+      "pids": 512,
       "ports": [3306],
       "volumes": ["mysql-data", "mysql-conf"],
       "secrets": ["mysql-root-password"],
@@ -58,9 +59,18 @@
       "runtime": "oci",
       "cpuMillis": 4000,
       "memoryBytes": 8589934592,
+      "pids": 1024,
       "ports": [8888],
       "volumes": ["dobase-data", "dobase-backups"],
-      "secrets": ["dobase-jwt-secret", "dobase-object-encryption-key", "dobase-redis-uri", "dobase-admin-password"],
+      "secrets": [
+        "dobase-jwt-secret",
+        "dobase-object-encryption-key",
+        "dobase-redis-uri",
+        "dobase-admin-password",
+        "dobase-smtp-password",
+        "dobase-tls-certificate",
+        "dobase-tls-key"
+      ],
       "capabilities": []
     }
   }
