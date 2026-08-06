@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://store.nexrun.dev/schemas/catalog-entry.schema.json",
   "title": "NexRun catalog entry",
+  "description": "Canonical record for one NexRun catalog application. Every string is length-bounded and pattern-constrained: `format` is non-asserting in JSON Schema 2020-12, and even asserting validators accept `javascript:alert(1)` as a well-formed URI, so link fields carry an explicit `^https://` pattern instead of relying on `format` alone.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,14 +21,14 @@
   "properties": {
     "publisher": { "$ref": "#/$defs/slug" },
     "slug": { "$ref": "#/$defs/slug" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
-    "summary": { "type": "string", "minLength": 1, "maxLength": 240 },
-    "category": { "type": "string", "minLength": 1, "maxLength": 40 },
-    "license": { "type": "string", "maxLength": 80 },
+    "name": { "$ref": "#/$defs/displayText", "maxLength": 80 },
+    "summary": { "$ref": "#/$defs/displayText", "maxLength": 240 },
+    "category": { "$ref": "#/$defs/slug" },
+    "license": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[A-Za-z0-9][A-Za-z0-9.+_-]*(?:[ ][A-Za-z0-9.+_-]+)*$" },
     "trustLevel": { "enum": ["official", "verified", "community"] },
     "availability": { "enum": ["source-kit", "published", "withdrawn"] },
-    "source": { "type": "string", "format": "uri" },
-    "documentation": { "type": "string", "format": "uri" },
+    "source": { "$ref": "#/$defs/httpsUrl" },
+    "documentation": { "$ref": "#/$defs/httpsUrl" },
     "platforms": {
       "type": "array",
       "minItems": 1,
@@ -46,10 +47,10 @@
       "required": ["version", "reference", "manifestDigest", "signer"],
       "properties": {
         "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
-        "reference": { "type": "string", "minLength": 1 },
+        "reference": { "$ref": "#/$defs/registryReference" },
         "manifestDigest": { "$ref": "#/$defs/digest" },
-        "signer": { "type": "string", "minLength": 1 },
-        "publishedAt": { "type": "string", "format": "date-time" }
+        "signer": { "$ref": "#/$defs/signer" },
+        "publishedAt": { "type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})$" }
       }
     },
     "requirements": {
@@ -58,24 +59,29 @@
       "required": ["runtime", "ports", "volumes", "secrets", "capabilities"],
       "properties": {
         "runtime": { "enum": ["static", "process", "oci"] },
-        "minimumNexRun": { "type": "string" },
-        "maximumNexRun": { "type": "string" },
+        "minimumNexRun": { "$ref": "#/$defs/versionBound" },
+        "maximumNexRun": { "$ref": "#/$defs/versionBound" },
         "cpuMillis": { "type": "integer", "minimum": 1 },
         "memoryBytes": { "type": "integer", "minimum": 1 },
+        "pids": {
+          "description": "Process/thread limit declared by the source kit as IDEL `spec.resources.pids`. Omitted for runtimes that are not cgroup-limited, such as `static`.",
+          "type": "integer",
+          "minimum": 1
+        },
         "ports": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 65535 } },
         "volumes": { "type": "array", "items": { "$ref": "#/$defs/slug" } },
         "secrets": { "type": "array", "items": { "$ref": "#/$defs/slug" } },
-        "capabilities": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        "capabilities": { "type": "array", "items": { "$ref": "#/$defs/capability" } }
       }
     },
     "evidence": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "sbom": { "type": "string", "format": "uri" },
-        "provenance": { "type": "string", "format": "uri" },
-        "vulnerabilityReport": { "type": "string", "format": "uri" },
-        "conformance": { "type": "string", "format": "uri" }
+        "sbom": { "$ref": "#/$defs/httpsUrl" },
+        "provenance": { "$ref": "#/$defs/httpsUrl" },
+        "vulnerabilityReport": { "$ref": "#/$defs/httpsUrl" },
+        "conformance": { "$ref": "#/$defs/httpsUrl" }
       }
     }
   },
@@ -87,6 +93,45 @@
   ],
   "$defs": {
     "slug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$" },
-    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "httpsUrl": {
+      "description": "An absolute https:// link. `format: uri` alone is non-asserting and admits `javascript:` and `data:` payloads, so the scheme is pinned by pattern and the characters that break out of an HTML attribute are excluded.",
+      "type": "string",
+      "format": "uri",
+      "minLength": 9,
+      "maxLength": 2048,
+      "pattern": "^https://[^\\s<>\"'`\\\\]+$"
+    },
+    "displayText": {
+      "description": "Human-readable text rendered into the page. Angle brackets, quotes, backticks, backslashes and control characters are rejected so a record can never carry markup into a template.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^<>\"'`\\\\\\u0000-\\u001f\\u007f]+$"
+    },
+    "registryReference": {
+      "description": "An IDEL registry reference such as `docker.io/library/mysql:8.4`. At least one path separator is required, which also rules out bare scheme-like values.",
+      "type": "string",
+      "maxLength": 255,
+      "pattern": "^[a-z0-9][a-z0-9._-]*(?:/[a-z0-9][a-z0-9._-]*)+(?::[A-Za-z0-9._-]+)?(?:@sha256:[0-9a-f]{64})?$"
+    },
+    "signer": {
+      "description": "Publisher signing identity: a `~soft-id`, an email-style identity, or an algorithm-prefixed key fingerprint.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?:~[a-z0-9][a-z0-9-]*|[a-z0-9][a-z0-9._-]*@[a-z0-9][a-z0-9.-]*[a-z0-9]|(?:ed25519|sha256):[0-9a-f]{32,128})$"
+    },
+    "versionBound": {
+      "description": "A NexRun version bound. Bare semver only; comparison operators belong to the resolver, not the record.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "capability": {
+      "description": "A declared runtime capability, e.g. `net.bind`. Constrained so the capability plan cannot smuggle markup or shell metacharacters.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    }
   }
 }

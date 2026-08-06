@@ -22,7 +22,7 @@
           <div class="hero-facts" aria-label="Catalog facts">
             <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>3 source kits</span>
             <span><j-icon name="verified_user" aria-hidden="true"></j-icon>1 official publisher</span>
-            <span><j-icon name="fingerprint" aria-hidden="true"></j-icon>SHA-256 sealed releases</span>
+            <span><j-icon name="pending" aria-hidden="true"></j-icon>0 sealed releases so far</span>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
                   <strong>Immutable identity</strong>
                   <small>sha256 manifest digest</small>
                 </div>
-                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+                <j-icon class="record-check" name="radio_button_unchecked" aria-hidden="true"></j-icon>
               </li>
               <li>
                 <span class="icon-tile"><j-icon name="verified_user" aria-hidden="true"></j-icon></span>
@@ -48,7 +48,7 @@
                   <strong>Publisher trust</strong>
                   <small>signer matches explicit policy</small>
                 </div>
-                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+                <j-icon class="record-check" name="radio_button_unchecked" aria-hidden="true"></j-icon>
               </li>
               <li>
                 <span class="icon-tile"><j-icon name="schema" aria-hidden="true"></j-icon></span>
@@ -56,7 +56,7 @@
                   <strong>Traceable build</strong>
                   <small>signed provenance chain</small>
                 </div>
-                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+                <j-icon class="record-check" name="radio_button_unchecked" aria-hidden="true"></j-icon>
               </li>
               <li>
                 <span class="icon-tile"><j-icon name="fact_check" aria-hidden="true"></j-icon></span>
@@ -64,7 +64,7 @@
                   <strong>Operational evidence</strong>
                   <small>install · restart · restore</small>
                 </div>
-                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+                <j-icon class="record-check" name="radio_button_unchecked" aria-hidden="true"></j-icon>
               </li>
               <li>
                 <span class="icon-tile"><j-icon name="policy" aria-hidden="true"></j-icon></span>
@@ -72,12 +72,14 @@
                   <strong>Endorsement level</strong>
                   <small>official · verified · community</small>
                 </div>
-                <j-icon class="record-check icon-filled" name="check_circle" aria-hidden="true"></j-icon>
+                <j-icon class="record-check" name="radio_button_unchecked" aria-hidden="true"></j-icon>
               </li>
             </ul>
             <p class="record-foot">
-              Digest and signature values appear on each package once the publishing
-              pipeline goes live — until then, every entry stays a reviewed <code>source-kit</code>.
+              This is what the catalog schema will require of a sealed release — not
+              what any entry has met yet. No package here carries a digest or signature
+              today; every entry stays a reviewed <code>source-kit</code> until the
+              publishing pipeline goes live.
             </p>
           </j-card-section>
         </j-card>
@@ -197,7 +199,7 @@
                 <span><j-icon name="deployed_code" aria-hidden="true"></j-icon>OCI runtime</span>
                 <span><j-icon name="memory" aria-hidden="true"></j-icon>8 GiB RAM</span>
                 <span><j-icon name="hard_drive" aria-hidden="true"></j-icon>2 volumes</span>
-                <span><j-icon name="key" aria-hidden="true"></j-icon>4 secrets</span>
+                <span><j-icon name="key" aria-hidden="true"></j-icon>7 secrets</span>
               </div>
             </j-card-section>
             <j-card-actions>

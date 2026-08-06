@@ -1,4 +1,4 @@
 :root {
-  --jv-font-family: "Roboto", system-ui, sans-serif;
-  --jv-font-mono: "Roboto Mono", ui-monospace, monospace;
+  --jv-font-family: "Inter", system-ui, sans-serif;
+  --jv-font-mono: "JetBrains Mono", ui-monospace, monospace;
 }

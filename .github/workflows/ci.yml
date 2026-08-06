@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # Keep in step with <javelle.version> in pom.xml and javelleVersion in
+  # javelle.config.json.
+  JAVELLE_VERSION: "0.1.83"
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -20,27 +25,53 @@ jobs:
           java-version: "21"
           cache: maven
 
+      # Runs the catalog schema, drift, and offline-asset suites. These are the
+      # repository's only real enforcement, so a green build must mean they ran.
       - name: Compile and test Java
         run: mvn -B test
 
       - name: Resolve released Javelle CLI
         run: >-
           mvn -B -q dependency:copy
-          -Dartifact=one.nextera.openat.javelle:javelle-cli:0.1.59
+          -Dartifact=one.nextera.openat.javelle:javelle-cli:${{ env.JAVELLE_VERSION }}
           -DoutputDirectory=target/ci
 
       - name: Validate routes and JVL
         run: |
-          java -jar target/ci/javelle-cli-0.1.59.jar dev --check --mode web
-          java -jar target/ci/javelle-cli-0.1.59.jar jvl src/main/resources --check --strict
-          java -jar target/ci/javelle-cli-0.1.59.jar jvl src/main/resources
-          java -jar target/ci/javelle-cli-0.1.59.jar build --mode web
+          CLI="target/ci/javelle-cli-${JAVELLE_VERSION}.jar"
+          java -jar "$CLI" dev --check --mode web
+          java -jar "$CLI" jvl src/main/resources --check --strict
+          java -jar "$CLI" jvl src/main/resources
+          java -jar "$CLI" build --mode web
 
-      - name: Validate JSON resources
+      - name: Check JSON syntax
         run: >-
           jq empty catalog/catalog.json schemas/catalog-entry.schema.json
+          schemas/catalog.schema.json
           javelle.config.json src/main/javelle/package/manifest.json
           src/main/javelle/package/law.json src/main/javelle/package/permissions.json
+
+      # `jq empty` above only proves the bytes parse as JSON. A bogus trust
+      # level, a malformed digest, or a `javascript:` source URL is all valid
+      # JSON, so the catalog is additionally validated against its schema here.
+      - name: Validate catalog against JSON Schema
+        run: |
+          python3 -m pip install --quiet 'check-jsonschema==0.35.0'
+          python3 -m check_jsonschema \
+            --schemafile schemas/catalog.schema.json \
+            catalog/catalog.json
+
+      # Proves the validator is actually asserting, rather than passing because
+      # a $ref silently failed to resolve or a pattern was dropped.
+      - name: Prove the schema check rejects a bad entry
+        run: |
+          jq '.[0].source = "javascript:alert(1)"' catalog/catalog.json > /tmp/bad-catalog.json
+          if python3 -m check_jsonschema \
+               --schemafile schemas/catalog.schema.json /tmp/bad-catalog.json; then
+            echo 'Schema validation accepted a javascript: source URL.' >&2
+            exit 1
+          fi
+          echo 'Confirmed: the schema check rejects a javascript: source URL.'
 
       - name: Enforce Java-first templates
         run: |

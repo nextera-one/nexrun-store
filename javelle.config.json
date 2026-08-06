@@ -6,7 +6,7 @@
   "androidPackageId": "",
   "iosBundleId": "",
   "groupId": "one.nextera.nexrun",
-  "javelleVersion": "0.1.59",
+  "javelleVersion": "0.1.83",
   "styles": [
     {
       "href": "/styles/app.css",
@@ -45,7 +45,7 @@
     "icons": {
       "set": "material-symbols",
       "style": "rounded",
-      "mode": "cdn",
+      "mode": "self-host",
       "axes": {
         "fill": 0,
         "weight": 400,

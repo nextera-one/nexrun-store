@@ -12,8 +12,28 @@ fi
 if [ "$MODE" = "spa" ]; then
   MODE="web"
 fi
-JAVELLE_DEFAULT='/home/mohammed/.local/bin/javelle'
-JAVELLE="${JAVELLE_CLI:-$JAVELLE_DEFAULT}"
+# Resolve the Javelle CLI: explicit JAVELLE_CLI first, then PATH, then the
+# usual per-user install location. Never hardcode a developer's home directory
+# here -- CI runners and other machines have neither.
+resolve_javelle() {
+  if [ -n "${JAVELLE_CLI:-}" ]; then
+    printf '%s\n' "$JAVELLE_CLI"
+    return 0
+  fi
+  if command -v javelle >/dev/null 2>&1; then
+    command -v javelle
+    return 0
+  fi
+  if [ -x "$HOME/.local/bin/javelle" ]; then
+    printf '%s\n' "$HOME/.local/bin/javelle"
+    return 0
+  fi
+  echo "error: the Javelle CLI was not found." >&2
+  echo "       Install it (see README.md, 'Run locally') or set JAVELLE_CLI to its path." >&2
+  return 1
+}
+
+JAVELLE="$(resolve_javelle)"
 MAVEN_WARNING_OPTION="--sun-misc-unsafe-memory-access=allow"
 MAVEN_WARNING_JAVA="java"
 if [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/java" ]; then
