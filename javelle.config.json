@@ -6,7 +6,7 @@
   "androidPackageId": "",
   "iosBundleId": "",
   "groupId": "one.nextera.nexrun",
-  "javelleVersion": "0.2.41",
+  "javelleVersion": "0.2.42",
   "styles": [
     {
       "href": "/styles/app.css",
